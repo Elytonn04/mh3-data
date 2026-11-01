@@ -8,6 +8,11 @@ on:
       - '.github/workflows/android-apk.yml'
     tags: ['v*']
   workflow_dispatch:
+    inputs:
+      version:
+        description: 'Versão para publicar na aba Releases (ex.: v1.0.0). Deixe vazio para só compilar.'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -38,10 +43,13 @@ jobs:
           name: MH3-Database-apk
           path: MH3-Database.apk
 
-      # Tags no formato v1.0.0 também publicam o APK na aba Releases.
+      # Publica o APK na aba Releases quando há uma tag v* ou quando uma versão é
+      # informada ao iniciar o workflow manualmente (o GitHub cria a tag).
       - name: Publicar na aba Releases
-        if: startsWith(github.ref, 'refs/tags/v')
+        if: startsWith(github.ref, 'refs/tags/v') || (github.event_name == 'workflow_dispatch' && inputs.version != '')
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ inputs.version || github.ref_name }}
+          target_commitish: ${{ github.sha }}
           files: MH3-Database.apk
           generate_release_notes: true

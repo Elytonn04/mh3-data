@@ -14,8 +14,11 @@ No celular, permita a instalação de apps de fontes desconhecidas quando o Andr
 
 ## Gerar um APK novo
 
-- Pelo GitHub: *Actions → Build Android APK → Run workflow*.
-- Para publicar na aba Releases, crie uma tag que comece com `v`, por exemplo `v1.0.1`.
+- Só compilar: *Actions → Build Android APK → Run workflow*, deixando a versão vazia.
+  O APK fica em *Artifacts* da execução.
+- Publicar na aba Releases: no mesmo lugar, preencha *Versão* (por exemplo `v1.0.1`) e
+  rode. O GitHub cria a tag e a release com o APK anexado. Criar uma tag que comece
+  com `v` também publica.
 
 ## Sobre a assinatura
 
