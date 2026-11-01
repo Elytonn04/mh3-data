@@ -12,7 +12,7 @@ android {
         targetSdk 34
         // Cada build no GitHub Actions sobe o número da versão, então um APK novo
         // sempre pode ser instalado por cima do anterior.
-        versionCode (System.getenv('GITHUB_RUN_NUMBER') ?: '1') as Integer
+        versionCode = Integer.parseInt(System.getenv('GITHUB_RUN_NUMBER') ?: '1')
         versionName '1.0'
     }
 
